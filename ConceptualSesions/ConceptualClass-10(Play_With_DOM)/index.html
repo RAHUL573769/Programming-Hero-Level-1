@@ -3,6 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<style>
+			.first {
+				background-color: blue;
+			}
+		</style>
 		<title>Play With DOM</title>
 	</head>
 	<body>
@@ -16,7 +22,7 @@
 		<li></li>
 		<ul id="list-container" class="lists">
 			<li style="display: hidden" class="list-items">Second1</li>
-			<li class="list-items">Second2</li>
+			<li id="second" class="list-items">Second2</li>
 			<li class="list-items">Second3</li>
 			<li class="list-items">Third</li>
 		</ul>
@@ -33,6 +39,10 @@
 		<!-- text-comment -->
 		<!-- text-comment -->
 
+		<!-- Handling Events -->
+		<h1 id="count">0</h1>
+		<button onclick="clickMe()">Click Me To Add</button>
+		<button id="minusBtn">Click Me To Subtract</button>
 		<script src="./script.js"></script>
 	</body>
 </html>

@@ -52,6 +52,8 @@ console.log(item4.childNodes);
 
 const ul = document.getElementById("list-container");
 
+console.log(ul.children);
+console.log(ul.childNodes);
 console.log(ul.parentElement);
 
 console.log(ul.previousSibling);
@@ -63,9 +65,10 @@ console.log(ul.previousElementSibling);
 
 const list = document.querySelector("ul");
 
-console.log(list.innerHTML);
-console.log(list.textContent);
-console.log(list.innerText);
+console.log(list.innerHTML); //for tag injecting
+
+console.log(list.textContent); //browser e ja dekhi ta dekbo +hidden kichu
+console.log(list.innerText); //browser e ja dekhi
 
 // list.innerText = "Rahul";
 console.log(list);
@@ -77,11 +80,19 @@ console.log(list1);
 const list3 = document.querySelector("ul");
 const list2 = document.createElement("li");
 const list4 = document.createElement("li");
+
+const h2New = document.createElement("h2");
+const h3New = document.createElement("h2");
+h2New.innerText = "H2 Element";
+h3New.innerText = "H2 Element-1";
 list2.innerText = "Added by JS DOM";
 list4.innerText = "Added by JS DOM-1";
 
 list3.appendChild(list2);
 list3.appendChild(list4);
+list2.appendChild(h2New);
+list4.appendChild(h3New);
+
 console.log(list2);
 
 const h2 = document.querySelector("h2");
@@ -89,3 +100,31 @@ console.log(h2);
 h2.classList.add("first", "second");
 h2.classList.remove("second");
 console.log(h2);
+const ulNew = document.querySelector("ul");
+
+const second = document.getElementById("second");
+
+const list5 = document.createElement("li");
+list5.innerText = "NEW LISTS";
+
+ulNew.insertBefore(list5, second);
+const fistElement = document.getElementById("count");
+let sum = 0;
+function clickMe() {
+	console.log("Hello");
+
+	// const fistElement = document.getElementById("count");
+	// console.log(fistElement);
+	sum = sum + 1;
+
+	fistElement.innerText = sum;
+}
+
+const minusBtm = document.getElementById("minusBtn");
+
+minusBtm.addEventListener("click", function () {
+	sum = sum - 1;
+	console.log(sum);
+
+	fistElement.innerText = sum;
+});
