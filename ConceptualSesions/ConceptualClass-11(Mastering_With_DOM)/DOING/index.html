@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<section>
+			<div class="hello">
+				<h1>Hello</h1>
+
+				<p>Hiii</p>
+
+				<div>
+					<button onclick="handleClick(event)" id="btn">My Button</button>
+				</div>
+			</div>
+		</section>
+	</body>
+
+	<script>
+		document.getElementById("btn").addEventListener("click", function (e) {
+			console.log("BOSS");
+		});
+
+		function handleClick(event) {
+			console.log(event.target.parentNode.parentNode.childNodes[1].innerText);
+		}
+	</script>
+</html>
