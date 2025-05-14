@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tour of DOM</title>
+		<!-- <link rel="stylesheet" href="styles.css" /> -->
+
+		<style></style>
+	</head>
+	<body>
+		<header><h1>Welcome to my DOM</h1></header>
+
+		<main>
+			<h1>My Awesome DOM</h1>
+			<ul>
+				<li>Jalali</li>
+				<li>Shafayet</li>
+				<li>Liton</li>
+			</ul>
+		</main>
+
+		<section>
+			<h1 id="fruits-title">Fruits</h1>
+
+			<ul class="fruit-class">
+				<li>Apple</li>
+				<li>Banana</li>
+				<li>Carrot</li>
+			</ul>
+		</section>
+		<section>
+			<h1 id="fruits-title">Fruits</h1>
+
+			<ul class="fruit-class">
+				<li>Apple</li>
+				<li>Banana</li>
+				<li>Carrot</li>
+			</ul>
+		</section>
+	</body>
+
+	<script>
+		console.log("hello js");
+
+		const tag = document.getElementsByTagName("h1");
+		console.log(tag);
+
+		const tag2 = document.getElementsByTagName("li");
+		console.log(tag2);
+
+		for (li of tag2) {
+			console.log(li.innerText);
+		}
+		const id = document.getElementById("fruits-title").innerHTML;
+		console.log(id);
+		console.log(document.body);
+
+		const name = document.getElementsByClassName(".fruit-class");
+		console.log(name);
+
+		const sections = document.querySelectorAll("section");
+
+		for (section of sections) {
+			section.style.border = "2px solid red";
+			section.style.marginBottom = "20px";
+			section.style.backgroundColor = "lightgray";
+			section.style.paddingLeft = "7px";
+		}
+		console.log(sections);
+	</script>
+</html>
