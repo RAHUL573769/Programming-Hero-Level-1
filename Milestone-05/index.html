@@ -30,12 +30,22 @@
 			</ul>
 		</section>
 		<section>
-			<h1 id="fruits-title">Fruits</h1>
+			<h1 class="fruits" id="fruits-title">Fruits</h1>
 
 			<ul class="fruit-class">
 				<li>Apple</li>
 				<li>Banana</li>
 				<li>Carrot</li>
+			</ul>
+		</section>
+
+		<section id="places-container">
+			<h1>Places I like to Visit</h1>
+
+			<ul>
+				<li class="important-places">Sundarban</li>
+				<li class="important-places">Bandarban</li>
+				<li class="important-places">Jtadsfsf</li>
 			</ul>
 		</section>
 	</body>
@@ -68,5 +78,15 @@
 			section.style.paddingLeft = "7px";
 		}
 		console.log(sections);
+
+		const tag1 = document.querySelectorAll(".fruit-class");
+		console.log(tag1);
+		const placesContainer = document.getElementById("places-container");
+
+		const list = document.createElement("li");
+		list.innerText = "New Elements aDDES";
+
+		placesContainer.appendChild(list);
+		console.log("86", placesContainer.childNodes);
 	</script>
 </html>

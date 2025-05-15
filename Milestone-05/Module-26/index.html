@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JS Dom Events</title>
+	</head>
+	<body>
+		<h1>DOM er special Events</h1>
+		<button onclick="console.log(8)">Click Me</button>
+		<button onclick="console.log('6')">Click Me</button>
+
+		<button onclick="makeRed()">Make Red</button>
+		<button id="makeblue">Make Blue</button>
+		<button id="makepurple">Make Purple</button>
+		<button id="makepink">Make Pink</button>
+		<button id="makegolden">Make Golden</button>
+		<h1>Final DOM Event Handlers</h1>
+		<button onclick="handleOnClick()">Handle Event by Add Onclick</button>
+		<button onclick="handleOnClick()">
+			Handle Event by Add Event Listener
+		</button>
+		<h3 id="handler-status">Default Text</h3>
+		<script>
+			function makeRed() {
+				document.body.style.backgroundColor = "red";
+			}
+
+			const makeBlueButton = document.getElementById("makeblue");
+			makeBlueButton.onclick = makeBlue;
+			function makeBlue() {
+				document.body.style.backgroundColor = "blue";
+			}
+
+			const purpleButton = document.getElementById("makepurple");
+
+			purpleButton.onclick = function makePurple() {
+				document.body.style.backgroundColor = "purple";
+			};
+
+			const pinkButton = document.getElementById("makepink");
+			pinkButton.addEventListener("click", makePink);
+
+			function makePink() {
+				document.body.style.backgroundColor = "pink";
+			}
+
+			const goldenButton = document.getElementById("makegolden");
+			goldenButton.addEventListener("click", () => {
+				document.body.style.backgroundColor = "goldenrod";
+			});
+
+			function handleOnClick() {
+				const handleStatus = document.getElementById("handler-status");
+
+				handleStatus.innerText = "Handled BY Function attached ";
+			}
+		</script>
+	</body>
+</html>
