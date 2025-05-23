@@ -10,6 +10,7 @@
 		/>
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script src="home.js" defer></script>
+		<script src="cashout.js" defer></script>
 		<title>Payoo Home Page</title>
 	</head>
 	<body>
@@ -37,7 +38,9 @@
 							<div class="divider"></div>
 
 							<!-- add money start -->
-							<div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+							<div
+								class="hidden card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl"
+							>
 								<form class="card-body">
 									<div class="form-control">
 										<label class="label">
@@ -66,6 +69,42 @@
 									<div class="form-control mt-6">
 										<button id="unique-add-money" class="btn btn-primary">
 											Add Money
+										</button>
+									</div>
+								</form>
+							</div>
+
+							<!-- cashout started -->
+
+							<div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+								<form class="card-body">
+									<div class="form-control">
+										<label class="label">
+											<span class="label-text">Amount</span>
+										</label>
+										<input
+											id="cash-out-money"
+											type="text"
+											placeholder="Amount"
+											class="input input-bordered"
+											required
+										/>
+									</div>
+									<div class="form-control">
+										<label class="label">
+											<span class="label-text">Pin</span>
+										</label>
+										<input
+											type="password"
+											id="cashout-pin-input"
+											placeholder="password"
+											class="input input-bordered"
+											required
+										/>
+									</div>
+									<div class="form-control mt-6">
+										<button id="unique-cashout-money" class="btn btn-primary">
+											Cash Out
 										</button>
 									</div>
 								</form>

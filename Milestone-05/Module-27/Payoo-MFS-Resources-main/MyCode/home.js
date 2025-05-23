@@ -20,8 +20,12 @@ document
 			const addMoneyNumber = parseFloat(addMoneyInput);
 			const balanceNumber = parseInt(balance);
 			// console.log("22 number ", balanceNumber);
+
 			const newBalance = addMoneyNumber + balanceNumber;
-			// console.log(newBalance);
+
+			document.getElementById("account-balance").innerText = newBalance;
+
+			console.log(newBalance);
 		} else {
 			alert("Wrong Pin");
 		}
