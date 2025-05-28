@@ -58,3 +58,49 @@ console.log(a2);
 
 const x = number.filter((item) => item % 2 === 0);
 console.log(x);
+
+const array1 = [1, 3, 5, 6, 8];
+
+const sums = array1.reduce(
+	(preValue, currentValue) => preValue + currentValue,
+	9
+);
+
+console.log("12 line", sums);
+
+//scope
+
+const y = 5;
+
+// if (true) {
+// 	console.log(y);
+// 	let u = 12;
+// }
+
+// console.log(u);
+
+//class object
+
+class Animal {
+	name = "abc";
+	color = "blue";
+}
+
+const cat = new Animal();
+console.log((cat.name = "Rahuk"));
+
+class Pet {
+	name;
+	color;
+
+	constructor(petName, petColor) {
+		this.name = petName;
+		this.color = petColor;
+	}
+
+	showInfo() {
+		console.log(`My petname is ${this.color}`);
+	}
+}
+const cat1 = new Pet("travis", "white");
+console.log(cat1.showInfo());
