@@ -10,7 +10,12 @@ function getTimeString(time) {
 const loadSpecificCategories = (id) => {
 	fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
 		.then((res) => res.json())
-		.then((data) => displayVideos(data.category))
+		.then((data) => {
+			const activeBtn = document.getElementById(`btn-${id}`);
+			activeBtn.classList.add("active");
+			console.log(activeBtn);
+			displayVideos(data.category);
+		})
 		.catch((error) => console.log(error));
 };
 
@@ -38,7 +43,7 @@ const displayCategories = (categories) => {
 		// button.innerText = item.category;
 		// button.onclick = () => alert("hello");
 		const buttonContainer = document.createElement("div");
-		buttonContainer.innerHTML = `<button onclick="loadSpecificCategories(${item.category_id})" class="btn btn-primary ">${item.category}</button>`;
+		buttonContainer.innerHTML = `<button id= "btn-${item.category_id}" onclick="loadSpecificCategories(${item.category_id})" class="btn primary ">${item.category}</button>`;
 		categoryContainer.append(buttonContainer);
 	});
 };
@@ -61,17 +66,20 @@ const displayVideos = (videosData) => {
 	videoContainer.innerHTML = "";
 
 	if (videosData.length == 0) {
+		videoContainer.classList.remove("grid");
 		videoContainer.innerHTML = `
-		<div class="min-h-screen  flex flex-col gap-5 justify-center items-center">
+		<div class="min-h-[600px] flex flex-col gap-5 justify-center items-center w-full">
 		
-		<img src="">
+		<img src="./Icon.png">
 		
-		
+		<h2 class="text-center">No Content in this Category</h2>
 		</div>
 		
 		`;
 
 		return;
+	} else {
+		videoContainer.classList.add("grid");
 	}
 	// console.log("42", videosData);
 	videosData.forEach((video) => {
@@ -107,9 +115,12 @@ const displayVideos = (videosData) => {
     <div class="card-actions justify-end">
       <button class="btn btn-primary">Buy Now</button>
     </div>
-  </div>`;
+  </div>
+  <button>Details</button>;
+  
+  `;
 
-		console.log(video);
+		// console.log(video);
 
 		videoContainer.append(card);
 	});
