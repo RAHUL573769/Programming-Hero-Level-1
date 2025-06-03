@@ -1,5 +1,5 @@
 const user: {
-	firstName: string;
+	readonly firstName: string;
 
 	middleName: string;
 	lastName: string;
@@ -9,15 +9,20 @@ const user: {
 	middleName: "Abedin",
 	lastName: "Persion",
 };
+
+// user.firstName = "New Name";
+
+console.log(user.firstName);
+
 console.log(user.middleName);
 
 //functions
 
-function add(num1: number, num2: number): number {
+function add6(num1: number, num2: number): number {
 	return num1 + num2;
 }
 
-const result = add(12, 6);
+const result = add6(12, 6);
 
 console.log(result);
 
@@ -61,4 +66,4 @@ const student1: Student = {
 
 type userFunction = (number1: number, number2: number) => number;
 
-const add: userFunction = number;
+// const add: userFunction = number;

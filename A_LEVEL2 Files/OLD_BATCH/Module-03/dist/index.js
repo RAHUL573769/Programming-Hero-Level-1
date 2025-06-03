@@ -4,12 +4,14 @@ const user = {
     middleName: "Abedin",
     lastName: "Persion",
 };
+// user.firstName = "New Name";
+console.log(user.firstName);
 console.log(user.middleName);
 //functions
-function add(num1, num2) {
+function add6(num1, num2) {
     return num1 + num2;
 }
-const result = add(12, 6);
+const result = add6(12, 6);
 console.log(result);
 const poorUser = {
     name: "Mezba",
@@ -31,4 +33,4 @@ const student1 = {
     name: "",
     age: 34,
 };
-const add = number;
+// const add: userFunction = number;
