@@ -1,13 +1,19 @@
+import Actor from "./Actor";
 import "./App.css";
 import Todo from "./Todo";
 
 function App() {
+	const actors = ["Sakib", "Baapaa", "Raj", "Rubel", "Shriful Islam"];
 	return (
 		<>
 			<h1>Vite + React</h1>
-			<Todo task='Learn React'></Todo>
+			<Todo task='Learn React' isDone={false}></Todo>
 			<Person person={{ name: "Rahul Rudra", size: 100 }}></Person>
 			<Developer name='Laptop'></Developer>
+
+			{actors.map((actor) => (
+				<Actor name={actor}></Actor>
+			))}
 		</>
 	);
 }
