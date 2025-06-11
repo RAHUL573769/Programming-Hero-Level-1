@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express'
+import { userRoutes } from './routes/user.route'
 const app: Application = express()
 
 const userRouter = express.Router()
@@ -23,6 +24,9 @@ app.get('/', (req: Request, res: Response) => {
 //   })
 // })
 app.use('/api/v1', userRouter)
+
+app.use('/api/v1/users', userRoutes)
+
 userRouter.get('/users', (req: Request, res: Response) => {
   const users = [
     {
