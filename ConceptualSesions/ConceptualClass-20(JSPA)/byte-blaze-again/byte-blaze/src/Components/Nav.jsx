@@ -28,10 +28,24 @@ const Nav = () => {
 				<div className='flex-none'>
 					<ul className='menu menu-horizontal px-1'>
 						<li className='font-bold'>
-							<NavLink to='/'>Home</NavLink>
+							<NavLink
+								className={(isActive) => {
+									isActive ? "text-primary font-bold" : "font-bold";
+								}}
+								to='/'
+							>
+								Home
+							</NavLink>
 						</li>
 						<li className='font-bold'>
-							<NavLink to='/blogs'>Blogs</NavLink>
+							<NavLink
+								className={({ isActive }) => {
+									isActive ? "text-primary font-bold" : "font-bold";
+								}}
+								to='/blogs'
+							>
+								Blogs
+							</NavLink>
 						</li>
 						<li className='font-bold'>
 							<NavLink to='/bookmark'>Bookmarks</NavLink>

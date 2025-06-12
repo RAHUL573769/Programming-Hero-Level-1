@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import BookMarks from "../pages/BookMarks";
 import Blogs from "../pages/Blogs";
 import { Outlet } from "react-router-dom";
+import Footer from "../Components/Footer";
 
 const MainLayout = () => {
 	return (
@@ -12,11 +13,15 @@ const MainLayout = () => {
 				<Nav></Nav>
 			</div>
 
-			<Outlet></Outlet>
+			<div className='min-h-[calc(100vh-120px)]'>
+				<Outlet></Outlet>
+			</div>
 			{/* <Home></Home>
 
 			<BookMarks></BookMarks>
 			<Blogs></Blogs> */}
+
+			<Footer></Footer>
 		</div>
 	);
 };
