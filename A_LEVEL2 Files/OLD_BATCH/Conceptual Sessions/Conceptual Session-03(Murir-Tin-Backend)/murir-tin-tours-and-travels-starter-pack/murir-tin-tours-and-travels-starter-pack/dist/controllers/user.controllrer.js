@@ -25,7 +25,6 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({
             message: 'User Creation Failed',
             status: 'Failed',
-            data: error,
         });
     }
 });
