@@ -16,7 +16,7 @@ interface ITour {
   location: string[]
   slug: string
 }
-
+//instance methods
 interface ITourMethods {
   getNearestStartDateAndEndDate(): {
     NearestStartDate: Date
