@@ -10,12 +10,26 @@ const Countries = () => {
 			.then((data) => setCountries(data));
 	}, []);
 
-	const handleVisitedCountry = () => {};
+	const handleVisitedCountry = (country) => {
+		// console.log("Add to visited Country");
+		const newVisitedCountries = [...visited, country];
+		setVisited(newVisitedCountries);
+	};
 	return (
-		<div className='country-container'>
-			{countries.map((country) => (
-				<Country key={country.cca} country={country}></Country>
-			))}
+		<div>
+			<h5 className='text-white'>Visited Countries{visited.length}</h5>
+
+			<ul></ul>
+
+			<div className='country-container'>
+				{countries.map((country) => (
+					<Country
+						key={country.cca}
+						country={country}
+						handleVisitedCountry={handleVisitedCountry}
+					></Country>
+				))}
+			</div>
 		</div>
 	);
 };
