@@ -11,9 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatServices = void 0;
 const catModel_1 = require("../model/catModel");
+// const addCat = async function (catData: ICat): Promise<ICat> {
+//   // const result = await Cat.create(catData)
+//   const result = new Cat(catData)
+//   const id = await result.generateId()
+//   console.log('Id', id)
+//   return result
+// }
 const addCat = function (catData) {
     return __awaiter(this, void 0, void 0, function* () {
+        // const result = await Cat.create(catData)
+        // const id = await result.generateId()
+        //custom statics method
+        // const catId = await Cat.generateIdStatic()
+        // const data = { ...catData, id: catId }
         const result = yield catModel_1.Cat.create(catData);
+        console.log('Result', result);
         return result;
     });
 };

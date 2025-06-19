@@ -20,7 +20,7 @@ function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // await mongoose.connect(config.DATABASE_URL as string)
-            yield mongoose_1.default.connect(config_1.default.DATABASE_URL);
+            yield mongoose_1.default.connect(config_1.default.DATABASE_LOCAL);
             // console.log('Connected to MongoDB')
             app_1.default.listen(port, () => {
                 console.log(`Connected to port ${config_1.default.PORT}`);

@@ -4,7 +4,7 @@ import { CatServices } from '../services/cat.services'
 
 const createCatController = async (req: Request, res: Response) => {
   try {
-    const { ...data } = req.body
+    const data = req.body
 
     const data1 = await CatServices.addCat(data)
 
