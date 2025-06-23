@@ -1,12 +1,15 @@
 import "./App.css";
-import DaisyNav from "./Components/DaisyNav/DaisyNav";
-import Navbar from "./Components/NavBar/Navbar";
-
+import DaisyNavBar from "./Components/DaisyNavBar/DaisyNavBar";
+import Navar from "./Components/Navbar/Navar";
+import { IoIosMenu } from "react-icons/io";
+import Priceoptions from "./Components/PriceOptions/Priceoptions";
 function App() {
 	return (
 		<>
-			{/* <DaisyNav></DaisyNav> */}
-			<Navbar></Navbar>
+			<h1 className='text-3xl font-bold underline'>Vite + React</h1>
+			{/* <DaisyNavBar></DaisyNavBar> */}
+			<Navar></Navar>
+			<Priceoptions></Priceoptions>
 		</>
 	);
 }
