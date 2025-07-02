@@ -1,0 +1,8 @@
+{
+  "name": "rahulrudra",
+  "age": 27,
+  "email": "rahulrudra@example.com",
+  "photo": "https://example.com/photos/rahulrudra.jpg",
+  "role": "user",
+  "userStatus": "active"
+}

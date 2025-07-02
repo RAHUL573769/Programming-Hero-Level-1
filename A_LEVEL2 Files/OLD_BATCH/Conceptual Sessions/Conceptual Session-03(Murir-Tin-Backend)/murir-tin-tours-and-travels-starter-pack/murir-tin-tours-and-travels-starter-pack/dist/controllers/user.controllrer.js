@@ -11,42 +11,64 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("../services/user.services");
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sendResponse_1 = require("../utils/sendResponse");
+const catchAsync_1 = require("../utils/catchAsync");
+// type TSuccessResponse<T> = {
+//   statusCode: number
+//   status: 'success'
+//   message: string
+//   data?: T | T[] | null
+//   error?: any
+// }
+// const sendResponse = <T>(res: Response, data: TSuccessResponse<T>) => {
+//   res.status(data.statusCode).json({
+//     message: data.message,
+//     status: data.message,
+//     data: data.data,
+//   })
+// }
+const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
         const result = yield user_services_1.UserServices.createUser(userData);
-        res.status(200).json({
-            message: 'User Created Succesfully',
-            status: 'Success',
+        // res.status(200).json({
+        //   message: 'User Created Successfully',
+        //   status: 'Success',
+        //   data: result,
+        // })
+        (0, sendResponse_1.sendResponse)(res, {
+            message: 'Data Crated Successfully',
+            statusCode: 201,
+            status: 'success',
             data: result,
         });
     }
     catch (error) {
+        next(error);
         res.status(500).json({
             message: 'User Creation Failed',
             status: 'Failed',
         });
     }
 });
-const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const id = req.params.id;
-        const result = yield user_services_1.UserServices.getSingleUser(id);
-        res.status(200).json({
-            message: 'Single User Fetched Succesfully',
-            status: 'Success',
-            data: result,
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }
-    catch (error) {
-        res.status(500).json({
-            message: 'User Fetched Failed',
-            status: 'Failed',
-            data: error,
-        });
-    }
-});
+const getSingleUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield user_services_1.UserServices.getSingleUser(id);
+    res.status(200).json({
+        message: 'Single User Fetched Succesfully',
+        status: 'Success',
+        data: result,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // catch (error: any) {
+    //   res.status(500).json({
+    //     message: 'User Fetched Failed',
+    //     status: 'Failed',
+    //     data: error,
+    //   })
+    //   next(error)
+    // }
+}));
 const getAllUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_services_1.UserServices.getAllUser();

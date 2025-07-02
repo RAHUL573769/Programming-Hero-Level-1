@@ -1,19 +1,44 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { UserServices } from '../services/user.services'
+import { sendResponse } from '../utils/sendResponse'
+import { catchAsync } from '../utils/catchAsync'
 
-const createUser = async (req: Request, res: Response) => {
+// type TSuccessResponse<T> = {
+//   statusCode: number
+//   status: 'success'
+//   message: string
+//   data?: T | T[] | null
+//   error?: any
+// }
+// const sendResponse = <T>(res: Response, data: TSuccessResponse<T>) => {
+//   res.status(data.statusCode).json({
+//     message: data.message,
+//     status: data.message,
+//     data: data.data,
+//   })
+// }
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body
 
     const result = await UserServices.createUser(userData)
 
-    res.status(200).json({
-      message: 'User Created Succesfully',
-      status: 'Success',
+    // res.status(200).json({
+    //   message: 'User Created Successfully',
+    //   status: 'Success',
+    //   data: result,
+    // })
+    sendResponse(res, {
+      message: 'Data Crated Successfully',
+      statusCode: 201,
+      status: 'success',
       data: result,
     })
   } catch (error: any) {
+    next(error)
     res.status(500).json({
       message: 'User Creation Failed',
       status: 'Failed',
@@ -21,8 +46,8 @@ const createUser = async (req: Request, res: Response) => {
   }
 }
 
-const getSingleUser = async (req: Request, res: Response) => {
-  try {
+const getSingleUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
 
     const result = await UserServices.getSingleUser(id)
@@ -33,14 +58,18 @@ const getSingleUser = async (req: Request, res: Response) => {
       data: result,
     })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    res.status(500).json({
-      message: 'User Fetched Failed',
-      status: 'Failed',
-      data: error,
-    })
-  }
-}
+
+    // catch (error: any) {
+    //   res.status(500).json({
+    //     message: 'User Fetched Failed',
+    //     status: 'Failed',
+    //     data: error,
+    //   })
+
+    //   next(error)
+    // }
+  },
+)
 
 const getAllUser = async (req: Request, res: Response) => {
   try {

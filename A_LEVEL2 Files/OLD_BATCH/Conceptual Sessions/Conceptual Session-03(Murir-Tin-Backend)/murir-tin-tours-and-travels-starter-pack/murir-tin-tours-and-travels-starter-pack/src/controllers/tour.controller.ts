@@ -1,26 +1,81 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express'
+import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { TourServices } from '../services/tour.services'
+import { catchAsync } from '../utils/catchAsync'
+import { sendResponse } from '../utils/sendResponse'
 
-const createTour = async (req: Request, res: Response) => {
-  try {
-    const userData = req.body
-    const data = await TourServices.createTour(userData)
+//HOF - Higher Order Function
+// recieves a function as an argument/ parameter and / or returns a function
+// const catchAsyncFunction = (fn: RequestHandler) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((error: any) => next(error))
+//   }
+//   //{
+//   // name : 'Rahim',
+//   // age: 30
+//   // }
+// }
+// X calls Y -> Y call Z
+//catchAsync --> call korle ekta function ashbe -> shei function ke router call korbe sathe req, res,next diye dibe -> jei function ta router call korsilo shei function  amader nijosho function call kore dibe with req, res next
+// const createTour = (req: Request, res: Response, next: NextFunction) => {
+//   Promise.resolve(fn(req, res, next)).catch((error: any) => next(error))
 
-    res.status(200).json({
-      message: 'Tour Data Created',
-      status: 'Success',
-      data: data,
-    })
-  } catch (error: any) {
-    res.status(500).json({
-      message: error.message,
-      status: 'Failed',
-    })
-  }
-}
+//    catchAsyncFunction(async (req: Request, res: Response) => {
+//      const tourData = req.body
+//      const result = await tourServices.createTour(tourData)
+//      sendSuccessResponse(res, {
+//        statusCode: 201,
+//        message: 'Tour created successfully',
+//        data: result,
+//      })
+//    })
+// }
 
-const getAllTours = async (req: Request, res: Response) => {
+//middleware e data validate kore req.body data put kore
+
+// const catchAsyncFunction = (fn: RequestHandler) => {
+//   return (req: Request, res: Response, next: NextFunction) => {
+//     Promise.resolve(fn(req, res, next)).catch((error: any) => next(error))
+//   }
+// }
+
+// const createTour = async (req: Request, res: Response) => {
+//   try {
+//     const userData = req.body
+//     const data = await TourServices.createTour(userData)
+
+//     res.status(200).json({
+//       message: 'Tour Data Created',
+//       status: 'Success',
+//       data: data,
+//     })
+//   } catch (error: any) {
+//     res.status(500).json({
+//       message: error.message,
+//       status: 'Failed',
+//     })
+//   }
+// }
+const createTour = catchAsync(async (req: Request, res: Response) => {
+  const userData = req.body
+  const data = await TourServices.createTour(userData)
+
+  // res.status(200).json({
+  //   message: 'Tour Data Created',
+  //   status: 'Success',
+  //   data: data,
+  // })
+  sendResponse(res, {
+    statusCode: 201,
+    status: 'success',
+    message: 'Tour Created Successfully',
+    data: data,
+  })
+})
+
+const getAllTours = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const getTours = await TourServices.getTour()
 
@@ -30,10 +85,12 @@ const getAllTours = async (req: Request, res: Response) => {
       data: getTours,
     })
   } catch (error: any) {
-    res.status(500).json({
-      message: error.message,
-      status: 'Failed To get Data',
-    })
+    // res.status(500).json({
+    //   message: error.message,
+    //   status: 'Failed To get Data',
+    // })
+
+    next(error)
   }
 }
 
