@@ -20,7 +20,7 @@ const port = 5000;
 function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(config_1.default.database_url_local);
+            yield mongoose_1.default.connect('mongodb://localhost:27017/test');
             // console.log('Connected to MongoDB')
             app_1.default.listen(port, () => {
                 console.log(`Connected to port ${config_1.default.port}`);

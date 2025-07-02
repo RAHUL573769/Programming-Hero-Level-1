@@ -32,4 +32,11 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', user_route_1.UserRouter);
 app.use('/api/v1/tours', tour_route_1.TourRouter);
 // userRouter.get('/users')
+// catch all routes
+app.all('*', (req, res) => {
+    res.status(200).json({
+        status: 'Failed',
+        message: `Route Not Found for ${req.originalUrl}`,
+    });
+});
 exports.default = app;
