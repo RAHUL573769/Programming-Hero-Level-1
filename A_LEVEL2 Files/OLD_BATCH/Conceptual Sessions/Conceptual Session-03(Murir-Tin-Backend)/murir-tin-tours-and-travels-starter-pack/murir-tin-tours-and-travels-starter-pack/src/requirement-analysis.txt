@@ -24,3 +24,12 @@ Relation of Database
 1.One to One
 2.One to Many
 3.Many to One
+
+
+
+Errors
+1.Validation Errors
+2.Field Validation Errors
+a.If field is not given or not
+b.If Data type unique or not 
+c.

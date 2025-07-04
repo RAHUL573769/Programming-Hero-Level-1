@@ -10,7 +10,12 @@ const userSchema = new Schema<IUser>({
 
   age: { type: Number },
 
-  email: { type: String, unique: true, lowercase: true },
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+    required: [true, 'Please Enter User Email'],
+  },
   photo: {
     type: String,
   },
