@@ -8,21 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TourController = void 0;
 const tour_services_1 = require("../services/tour.services");
 const catchAsync_1 = require("../utils/catchAsync");
 const sendResponse_1 = require("../utils/sendResponse");
-const zod_1 = __importDefault(require("zod"));
-const createTourZodSchema = zod_1.default.object({
-    body: zod_1.default.string(),
-    durationHours: zod_1.default.number().int().positive().min(1),
-    ratingsAverage: zod_1.default.number().int().positive().min(1).max(5),
-    price: zod_1.default.number(),
-});
+// const createTourZodSchema = z.object({
+//   body: z.string(),
+//   durationHours: z.number().int().positive().min(1),
+//   ratingsAverage: z.number().int().positive().min(1).max(5),
+//   price: z.number(),
+// })
 //HOF - Higher Order Function
 // recieves a function as an argument/ parameter and / or returns a function
 // const catchAsyncFunction = (fn: RequestHandler) => {
@@ -71,11 +67,11 @@ const createTourZodSchema = zod_1.default.object({
 //   }
 // }
 const createTour = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = req.body;
-    const validatedData = createTourZodSchema.parse(userData);
-    if (!validatedData) {
-        throw new Error('Validation Failed');
-    }
+    const validatedData = req.body;
+    // const validatedData = createTourZodSchema.parse(userData)
+    // if (!validatedData) {
+    //   throw new Error('Validation Failed')
+    // }
     const data = yield tour_services_1.TourServices.createTour(validatedData);
     // const data = await TourServices.createTour(userData)
     // res.status(200).json({
@@ -92,7 +88,9 @@ const createTour = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, 
 }));
 const getAllTours = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const getTours = yield tour_services_1.TourServices.getTour();
+        const query = req.query;
+        console.log(query);
+        const getTours = yield tour_services_1.TourServices.getTour(query);
         res.status(200).json({
             message: 'Tour Data Fetched',
             status: 'Success',

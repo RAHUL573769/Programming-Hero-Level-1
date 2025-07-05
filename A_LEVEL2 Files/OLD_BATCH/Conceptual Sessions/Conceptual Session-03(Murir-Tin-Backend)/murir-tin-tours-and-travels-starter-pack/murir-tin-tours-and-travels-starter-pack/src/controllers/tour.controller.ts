@@ -6,12 +6,13 @@ import { TourServices } from '../services/tour.services'
 import { catchAsync } from '../utils/catchAsync'
 import { sendResponse } from '../utils/sendResponse'
 import z from 'zod'
-const createTourZodSchema = z.object({
-  body: z.string(),
-  durationHours: z.number().int().positive().min(1),
-  ratingsAverage: z.number().int().positive().min(1).max(5),
-  price: z.number(),
-})
+import { createTourZodSchema } from '../middlewares/zodMiddleWare'
+// const createTourZodSchema = z.object({
+//   body: z.string(),
+//   durationHours: z.number().int().positive().min(1),
+//   ratingsAverage: z.number().int().positive().min(1).max(5),
+//   price: z.number(),
+// })
 //HOF - Higher Order Function
 // recieves a function as an argument/ parameter and / or returns a function
 // const catchAsyncFunction = (fn: RequestHandler) => {
@@ -65,13 +66,13 @@ const createTourZodSchema = z.object({
 //   }
 // }
 const createTour = catchAsync(async (req: Request, res: Response) => {
-  const userData = req.body
+  const validatedData = req.body
 
-  const validatedData = createTourZodSchema.parse(userData)
+  // const validatedData = createTourZodSchema.parse(userData)
 
-  if (!validatedData) {
-    throw new Error('Validation Failed')
-  }
+  // if (!validatedData) {
+  //   throw new Error('Validation Failed')
+  // }
   const data = await TourServices.createTour(validatedData)
   // const data = await TourServices.createTour(userData)
 
@@ -90,7 +91,9 @@ const createTour = catchAsync(async (req: Request, res: Response) => {
 
 const getAllTours = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const getTours = await TourServices.getTour()
+    const query = req.query
+    console.log(query)
+    const getTours = await TourServices.getTour(query)
 
     res.status(200).json({
       message: 'Tour Data Fetched',

@@ -14,12 +14,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TourServices = void 0;
 const tour_model_1 = __importDefault(require("../models/tour.model"));
+const filters_1 = require("../helpers/filterHelpers/filters");
 const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.create(tourData);
     return result;
 });
-const getTour = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield tour_model_1.default.find();
+// type TQueryObj = {
+//   [key: string]: unknown
+//   page?: string
+//   searchTerm?: string
+//   limit?: string
+//   sort?: string
+//   sortBy?: string
+//   sortOrder?: string
+//   fields?: string
+// }
+// const filter = <T>(model: Query<T[], T>, queryObj: TQueryObj) => {
+//   // queryObj.fields
+//   const excludeObj = [
+//     'page',
+//     'searchTerm',
+//     'limit',
+//     'sort',
+//     'sortBy',
+//     'sortOrder',
+//     'fields',
+//   ]
+//   excludeObj.forEach((keyword) => delete queryObj[keyword])
+//   const modelQuery = model.find(queryObj)
+//   return modelQuery
+// }
+const getTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    // const queryObj = { ...query }
+    // console.log(queryObj, 'Before Delete')
+    // const excludeObj = [
+    //   'page',
+    //   'searchTerm',
+    //   'limit',
+    //   'sort',
+    //   'sortBy',
+    //   'sortOrder',
+    //   'fields',
+    // ]
+    // excludeObj.forEach((keyword) => delete queryObj[keyword])
+    // console.log(queryObj, 'After Delete')
+    // const result = await Tour.find(query)
+    // return result
+    const result = yield (0, filters_1.filter)(tour_model_1.default.find({ price: { $lt: 1200 } }), query);
     return result;
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
