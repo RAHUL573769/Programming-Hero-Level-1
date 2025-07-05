@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ITour } from '../interface/tour.interface'
 import Tour from '../models/tour.model'
 
-const createTour = async (tourData: ITour): Promise<ITour> => {
+const createTour = async (tourData: any): Promise<ITour> => {
   const result = await Tour.create(tourData)
   return result
 }

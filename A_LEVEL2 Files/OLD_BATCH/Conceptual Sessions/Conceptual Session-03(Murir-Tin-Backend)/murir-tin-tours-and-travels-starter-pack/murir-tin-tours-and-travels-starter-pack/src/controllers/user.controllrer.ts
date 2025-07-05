@@ -5,6 +5,7 @@ import { NextFunction, Request, Response } from 'express'
 import { UserServices } from '../services/user.services'
 import { sendResponse } from '../utils/sendResponse'
 import { catchAsync } from '../utils/catchAsync'
+import GenericError from '../classes/ErrorClasses/GenericError'
 
 // type TSuccessResponse<T> = {
 //   statusCode: number
@@ -23,7 +24,6 @@ import { catchAsync } from '../utils/catchAsync'
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userData = req.body
-
     const result = await UserServices.createUser(userData)
 
     // res.status(200).json({
@@ -49,6 +49,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 const getSingleUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
+    throw new GenericError('Caanot Find Single User Error 1', 400)
 
     const result = await UserServices.getSingleUser(id)
 

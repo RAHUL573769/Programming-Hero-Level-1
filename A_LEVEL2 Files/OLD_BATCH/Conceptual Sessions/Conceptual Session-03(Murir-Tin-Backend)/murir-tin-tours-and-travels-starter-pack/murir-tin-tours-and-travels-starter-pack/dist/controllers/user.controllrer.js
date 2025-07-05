@@ -8,11 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("../services/user.services");
 const sendResponse_1 = require("../utils/sendResponse");
 const catchAsync_1 = require("../utils/catchAsync");
+const GenericError_1 = __importDefault(require("../classes/ErrorClasses/GenericError"));
 // type TSuccessResponse<T> = {
 //   statusCode: number
 //   status: 'success'
@@ -53,6 +57,7 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 });
 const getSingleUser = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
+    throw new GenericError_1.default('Caanot Find Single User Error 1', 400);
     const result = yield user_services_1.UserServices.getSingleUser(id);
     res.status(200).json({
         message: 'Single User Fetched Succesfully',

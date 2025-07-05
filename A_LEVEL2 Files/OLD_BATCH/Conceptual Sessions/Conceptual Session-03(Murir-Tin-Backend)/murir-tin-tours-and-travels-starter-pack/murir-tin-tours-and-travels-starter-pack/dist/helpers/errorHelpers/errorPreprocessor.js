@@ -3,29 +3,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.errorPreprocessor = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const mongoose_1 = __importDefault(require("mongoose"));
-const handleValidationError_1 = require("../helpers/errorHelpers/handleValidationError");
-const handleDuplicateError_1 = require("../helpers/errorHelpers/handleDuplicateError");
-const handleCastError_1 = require("../helpers/errorHelpers/handleCastError");
-const handleGenericError_1 = require("../helpers/errorHelpers/handleGenericError");
-const GenericError_1 = __importDefault(require("../classes/ErrorClasses/GenericError"));
-const globalErrorHandler = (err, req, res, next) => {
-    // const message =
-    //   `${err.message} error from global error handler` || 'Something went wrong'
-    // const statusCode = err.statusCode || 500
-    // const status = err.status || 'error'
-    // console.log(err)
-    // if (err.name && err.name === 'ValidationError') {
-    //   console.log('Ami Validation Error')
-    // }
-    let errorResponse = {
-        statusCode: err.statusCode,
-        message: err.message,
-        status: err.status,
-        issues: err.issues || [],
-    };
+const handleValidationError_1 = require("./handleValidationError");
+const handleDuplicateError_1 = require("./handleDuplicateError");
+const handleCastError_1 = require("./handleCastError");
+const GenericError_1 = __importDefault(require("../../classes/ErrorClasses/GenericError"));
+const handleGenericError_1 = require("./handleGenericError");
+const errorPreprocessor = (err) => {
     if (err instanceof mongoose_1.default.Error.ValidationError) {
-        errorResponse = (0, handleValidationError_1.handleValidationError)(err);
+        return (0, handleValidationError_1.handleValidationError)(err);
         // console.log('Ami Validation Error')
         // errorResponse.message = err.message
         // errorResponse.statusCode = 400
@@ -44,7 +34,7 @@ const globalErrorHandler = (err, req, res, next) => {
         // )
     }
     else if (err.code && err.code === 11000) {
-        errorResponse = (0, handleDuplicateError_1.handleDuplicateError)(err);
+        return (0, handleDuplicateError_1.handleDuplicateError)(err);
         // console.log('Ami Duplicate  Error')
         // errorResponse.message = 'Duplicate Error'
         // errorResponse.statusCode = 400
@@ -54,7 +44,7 @@ const globalErrorHandler = (err, req, res, next) => {
         // ]
     }
     else if (err && err instanceof mongoose_1.default.Error.CastError) {
-        errorResponse = (0, handleCastError_1.handleCastError)(err);
+        return (0, handleCastError_1.handleCastError)(err);
         // console.log('Ami CastError')
         // errorResponse.message = 'Invalid ID'
         // errorResponse.statusCode = 400
@@ -76,11 +66,11 @@ const globalErrorHandler = (err, req, res, next) => {
     }
     else if (err instanceof GenericError_1.default) {
         console.log('I amHere 1');
-        errorResponse = (0, handleGenericError_1.handleGenericError)(err);
+        return (0, handleGenericError_1.handleGenericError)(err);
     }
-    else if (err instanceof Error) {
+    else {
         console.log('I amHere');
-        errorResponse = {
+        return {
             message: 'Unknown Error Found',
             statusCode: 500,
             status: 'error',
@@ -93,18 +83,5 @@ const globalErrorHandler = (err, req, res, next) => {
             ],
         };
     }
-    // errorResponse = errorPreprocessor(err)
-    res.status(errorResponse.statusCode).json({
-        message: errorResponse.message,
-        status: errorResponse.status,
-        stack: err.stack,
-        issues: errorResponse.issues,
-    });
-    next();
 };
-exports.default = globalErrorHandler;
-//Error Pattern
-//statusCode
-//status
-//message
-//issues
+exports.errorPreprocessor = errorPreprocessor;

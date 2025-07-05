@@ -1,41 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
-import { TErrorResponse } from '../types/TErrorResponse'
-import { handleValidationError } from '../helpers/errorHelpers/handleValidationError'
-import { handleDuplicateError } from '../helpers/errorHelpers/handleDuplicateError'
-import { handleCastError } from '../helpers/errorHelpers/handleCastError'
-import { handleGenericError } from '../helpers/errorHelpers/handleGenericError'
-import GenericError from '../classes/ErrorClasses/GenericError'
-import { errorPreprocessor } from '../helpers/errorHelpers/errorPreprocessor'
+import { handleValidationError } from './handleValidationError'
+import { handleDuplicateError } from './handleDuplicateError'
+import { handleCastError } from './handleCastError'
+import GenericError from '../../classes/ErrorClasses/GenericError'
+import { handleGenericError } from './handleGenericError'
+import { TErrorResponse } from '../../types/TErrorResponse'
 
-const globalErrorHandler = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  // const message =
-  //   `${err.message} error from global error handler` || 'Something went wrong'
-  // const statusCode = err.statusCode || 500
-  // const status = err.status || 'error'
-  // console.log(err)
-
-  // if (err.name && err.name === 'ValidationError') {
-  //   console.log('Ami Validation Error')
-  // }
-
-  let errorResponse: TErrorResponse = {
-    statusCode: err.statusCode,
-    message: err.message,
-    status: err.status,
-    issues: err.issues || [],
-  }
-
+export const errorPreprocessor = (err: any): TErrorResponse => {
   if (err instanceof mongoose.Error.ValidationError) {
-    errorResponse = handleValidationError(err)
+    return handleValidationError(err)
 
     // console.log('Ami Validation Error')
     // errorResponse.message = err.message
@@ -54,7 +30,7 @@ const globalErrorHandler = (
     //   },
     // )
   } else if (err.code && err.code === 11000) {
-    errorResponse = handleDuplicateError(err)
+    return handleDuplicateError(err)
     // console.log('Ami Duplicate  Error')
     // errorResponse.message = 'Duplicate Error'
     // errorResponse.statusCode = 400
@@ -63,7 +39,7 @@ const globalErrorHandler = (
     //   { path: '', message: 'Value is duplicated', kind: '' },
     // ]
   } else if (err && err instanceof mongoose.Error.CastError) {
-    errorResponse = handleCastError(err)
+    return handleCastError(err)
     // console.log('Ami CastError')
     // errorResponse.message = 'Invalid ID'
     // errorResponse.statusCode = 400
@@ -84,10 +60,10 @@ const globalErrorHandler = (
     // )
   } else if (err instanceof GenericError) {
     console.log('I amHere 1')
-    errorResponse = handleGenericError(err)
-  } else if (err instanceof Error) {
+    return handleGenericError(err)
+  } else {
     console.log('I amHere')
-    errorResponse = {
+    return {
       message: 'Unknown Error Found',
       statusCode: 500,
       status: 'error',
@@ -100,19 +76,4 @@ const globalErrorHandler = (
       ],
     }
   }
-
-  // errorResponse = errorPreprocessor(err)
-  res.status(errorResponse.statusCode).json({
-    message: errorResponse.message,
-    status: errorResponse.status,
-    stack: err.stack,
-    issues: errorResponse.issues,
-  })
-  next()
 }
-export default globalErrorHandler
-//Error Pattern
-//statusCode
-//status
-//message
-//issues

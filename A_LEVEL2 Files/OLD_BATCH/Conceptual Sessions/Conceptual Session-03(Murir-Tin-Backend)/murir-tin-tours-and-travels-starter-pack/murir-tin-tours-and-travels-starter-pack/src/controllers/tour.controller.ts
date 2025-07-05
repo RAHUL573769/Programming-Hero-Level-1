@@ -5,7 +5,13 @@ import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { TourServices } from '../services/tour.services'
 import { catchAsync } from '../utils/catchAsync'
 import { sendResponse } from '../utils/sendResponse'
-
+import z from 'zod'
+const createTourZodSchema = z.object({
+  body: z.string(),
+  durationHours: z.number().int().positive().min(1),
+  ratingsAverage: z.number().int().positive().min(1).max(5),
+  price: z.number(),
+})
 //HOF - Higher Order Function
 // recieves a function as an argument/ parameter and / or returns a function
 // const catchAsyncFunction = (fn: RequestHandler) => {
@@ -60,7 +66,14 @@ import { sendResponse } from '../utils/sendResponse'
 // }
 const createTour = catchAsync(async (req: Request, res: Response) => {
   const userData = req.body
-  const data = await TourServices.createTour(userData)
+
+  const validatedData = createTourZodSchema.parse(userData)
+
+  if (!validatedData) {
+    throw new Error('Validation Failed')
+  }
+  const data = await TourServices.createTour(validatedData)
+  // const data = await TourServices.createTour(userData)
 
   // res.status(200).json({
   //   message: 'Tour Data Created',
