@@ -44,6 +44,7 @@ const createTour = (tourData) => __awaiter(void 0, void 0, void 0, function* () 
 //   const modelQuery = model.find(queryObj)
 //   return modelQuery
 // }
+// const getTour = async (query: any): Promise<ITour[]> => {
 const getTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // const queryObj = { ...query }
     // console.log(queryObj, 'Before Delete')
@@ -60,8 +61,36 @@ const getTour = (query) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log(queryObj, 'After Delete')
     // const result = await Tour.find(query)
     // return result
-    const result = yield (0, filters_1.filter)(tour_model_1.default.find({ price: { $lt: 1200 } }), query);
+    console.log('Query', query);
+    // const result = await filter(Tour.find(), query)
+    const modelQuery = (0, filters_1.filter)(tour_model_1.default.find(), query);
+    // const result = await filter(Tour.find({ price: { $lt: 1200 } }), query)
+    //partial match
+    if (query.searchTerm) {
+        // console.log(modelQuery.model.schema.path('name'), 'Model Query Path')--->Path Function
+        // console.log(modelQuery.model.schema.paths, 'Model Query Paths')
+        const fieldValues = Object.values(modelQuery.model.schema.paths);
+        const searchableFields = fieldValues
+            .filter((fieldObj) => {
+            if (fieldObj.instance === 'String') {
+                return true;
+            }
+        })
+            .map((fieldObj) => ({
+            [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' },
+        }));
+        console.log(searchableFields, 'searchableFields');
+        // .map((fieldObj) =>  [fieldObj.path]: { $regex: query.searchTerm, $options: 'i' }
+        // console.log('Field Values', fieldValues)
+        // console.log('Searchale Fields', searchableFields)
+        modelQuery.find({
+            // name: { $regex: query.searchTerm, $options: 'i' },
+            $or: searchableFields,
+        });
+    }
+    const result = yield modelQuery;
     return result;
+    // return result
 });
 const getSingleTour = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield tour_model_1.default.findById(id);
