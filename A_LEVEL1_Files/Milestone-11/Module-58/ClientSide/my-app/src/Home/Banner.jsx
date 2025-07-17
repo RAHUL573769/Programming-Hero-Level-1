@@ -11,7 +11,7 @@ const Banner = () => {
 						className='max-w-sm rounded-lg shadow-2xl'
 					/>
 					<div>
-						<motion.h1
+						<h1
 							animate={{
 								scale: [1, 2, 2, 1, 1],
 								rotate: [0, 0, 180, 180, 0],
@@ -27,7 +27,23 @@ const Banner = () => {
 							className='text-5xl font-bold'
 						>
 							Box Office News!
-						</motion.h1>
+							{/* <motion.h1
+							animate={{
+								scale: [1, 2, 2, 1, 1],
+								rotate: [0, 0, 180, 180, 0],
+								borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+							}}
+							transition={{
+								duration: 2,
+								ease: "easeInOut",
+								times: [0, 0.2, 0.5, 0.8, 1],
+								repeat: Infinity,
+								repeatDelay: 1,
+							}}
+							className='text-5xl font-bold'
+						>
+							Box Office News! */}
+						</h1>
 						<p className='py-6'>
 							Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
 							excepturi exercitationem quasi. In deleniti eaque aut repudiandae
