@@ -6,6 +6,7 @@ import Home from "../../Home/Home";
 import JobDetails from "../../Components/JobDetails";
 import PrivateRoute from "./PrivateRoute";
 import JobApply from "../../Components/JobApply";
+import MyApplications from "../../Components/MyApplications";
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
 				),
 				loader: ({ params }) =>
 					fetch(`http://localhost:5000/jobs/${params.id}`),
+			},
+
+			{
+				path: "/myApplications",
+				element: (
+					<PrivateRoute>
+						<MyApplications></MyApplications>,
+					</PrivateRoute>
+				),
 			},
 
 			{

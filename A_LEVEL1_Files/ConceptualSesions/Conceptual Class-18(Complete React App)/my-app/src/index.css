@@ -1,0 +1,21 @@
+.main-container {
+	display: flex;
+	justify-content: space-around;
+}
+.cart-container {
+	width: 350px;
+	box-shadow: 4px 4px 8px grey;
+	border: 10px solid red;
+}
+.card {
+	width: 300px;
+	text-align: center;
+	border: 2px solid gray;
+}
+.card-img {
+	width: 300px;
+}
+.card-footer {
+	display: flex;
+	justify-content: space-around;
+}
