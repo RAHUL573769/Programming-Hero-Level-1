@@ -9,9 +9,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 const port = 5000;
 
-// const uri = "mongodb://localhost:27017/";
-const uri =
-	"mongodb+srv://newUser1:UHiXTlJNAHHEwdgd@cluster0.xfoemxu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb://localhost:27017/";
+// const uri =
+// 	"mongodb+srv://newUser1:UHiXTlJNAHHEwdgd@cluster0.xfoemxu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // newUser1;
 // UHiXTlJNAHHEwdgd
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version

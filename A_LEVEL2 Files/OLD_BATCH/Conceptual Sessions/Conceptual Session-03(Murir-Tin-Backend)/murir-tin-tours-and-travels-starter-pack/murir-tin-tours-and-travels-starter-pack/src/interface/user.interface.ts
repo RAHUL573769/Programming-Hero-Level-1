@@ -3,6 +3,7 @@ interface IUser {
   age: number
   email: string
   photo: string
+  password: string
   role: 'user' | 'admin'
   userStatus: 'active' | 'in-active'
 }

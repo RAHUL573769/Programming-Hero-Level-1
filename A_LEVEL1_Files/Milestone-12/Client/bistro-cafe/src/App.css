@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@plugin "daisyui";
+.featured-item {
+	background-color: url("./assets/home/featured.jpg");
+}
