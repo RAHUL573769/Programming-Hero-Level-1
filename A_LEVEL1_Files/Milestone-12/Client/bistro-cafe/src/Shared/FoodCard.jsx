@@ -1,4 +1,70 @@
+import { AuthContext } from "../providers/AuthContext";
+import useAuth from "../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useCart from "../hooks/useCart";
+
 const FoodCard = ({ item }) => {
+	// const { user } = useContext(AuthContext);
+	const { user } = useAuth();
+
+	const navigate = useNavigate();
+
+	const location = useLocation();
+	const [refetch] = useCart();
+	const axiosSecure = useAxiosSecure();
+	const handleAddToCart = () => {
+		// console.log(food, user);
+
+		if (user && user.email) {
+			//send item to database
+			console.log(item);
+
+			const cartItem = {
+				menuId: item._id,
+				email: user.email,
+				name: item.name,
+				price: item.price,
+			};
+			axiosSecure.post("http://localhost:5000/carts", cartItem).then((res) => {
+				console.log(res.data);
+				if (res.data.insertedId) {
+					alert("Item aDDED");
+					//re-fetch cart
+
+					refetch();
+				}
+			});
+		} else {
+			alert("Please Login to Add to CART");
+			navigate("/login", { state: { from: location } });
+		}
+	};
+	// const handleAddToCart = (food) => {
+	// 	console.log(food, user);
+
+	// 	if (user && user.email) {
+	// 		//send item to database
+	// 		console.log(item);
+
+	// 		const cartItem = {
+	// 			menuId: item._id,
+	// 			email: user.email,
+	// 			name: item.name,
+	// 			price: item.price,
+	// 		};
+	// 		axiosSecure.post("http://localhost:5000/carts", cartItem).then((res) => {
+	// 			console.log(res.data);
+	// 			if (res.data.insertedId) {
+	// 				alert("Item aDDED");
+	// 			}
+	// 		});
+	// 	} else {
+	// 		alert("Please Login to Add to CART");
+	// 		navigate("/login", { state: { from: location } });
+	// 	}
+	// };
 	// console.log(length(item.keys()));
 	return (
 		<div>
@@ -13,9 +79,18 @@ const FoodCard = ({ item }) => {
 					</p>
 					<p>Categories :{item.category}</p>
 					<div className='card-actions justify-end'>
-						<button className='btn btn-primary border-0 border-b-4 mt-4'>
+						<button
+							onClick={handleAddToCart}
+							className='btn btn-primary border-0 border-b-4 mt-4'
+						>
 							Add to Cart
 						</button>
+						{/* <button
+							onClick={() => handleAddToCart(item)}
+							className='btn btn-primary border-0 border-b-4 mt-4'
+						>
+							Add to Cart
+						</button> */}
 					</div>
 				</div>
 			</div>

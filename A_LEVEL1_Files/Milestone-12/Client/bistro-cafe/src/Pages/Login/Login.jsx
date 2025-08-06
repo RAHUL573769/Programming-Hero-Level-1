@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { LoadCanvasTemplate } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-	const { createUserWithEmailPasswordFunction } = useContext(AuthContext);
+	const { signInWithEmailAndPasswordFunction } = useContext(AuthContext);
+
+	const location = useLocation();
+	const navigate = useNavigate();
+	const from = location.state;
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const form = event.target;
@@ -12,11 +16,12 @@ const Login = () => {
 		const password = form.password.value;
 		console.log(email, password);
 
-		createUserWithEmailPasswordFunction(email, password)
+		signInWithEmailAndPasswordFunction(email, password)
 			.then((userCredential) => {
 				// Signed up
 				const user = userCredential.user;
 				console.log(user);
+				navigate(from);
 				// ...
 			})
 			.catch((error) => {

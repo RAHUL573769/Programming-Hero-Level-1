@@ -28,12 +28,30 @@ async function run() {
 		// Connect the client to the server	(optional starting in v4.7)
 		await client.connect();
 		const menuCollection = client.db("bistroDb").collection("menu");
+		const cartCollection = client.db("bistroDb").collection("carts");
 		// Send a ping to confirm a successful connection
 
 		await client.db("admin").command({ ping: 1 });
 		app.get("/menu", async (req, res) => {
 			const result = await menuCollection.find().toArray();
 
+			res.send(result);
+		});
+		app.get("/carts", async (req, res) => {
+			const email = req.query.email;
+			const query = { email: email };
+			const result = await cartCollection.find(query).toArray();
+			res.send(result);
+		});
+		// app.get("/carts", async (req, res) => {
+
+		// 	const result = await cartCollection.find().toArray();
+		// 	res.send(result);
+		// });
+
+		app.post("/carts", async (req, res) => {
+			const cartItem = req.body;
+			const result = await cartCollection.insertOne(cartItem);
 			res.send(result);
 		});
 		console.log(
@@ -52,3 +70,8 @@ app.get("/", async (req, res) => {
 app.listen(port, async (req, res) => {
 	console.log("Server is Running");
 });
+//
+
+// Naming Convention
+
+//

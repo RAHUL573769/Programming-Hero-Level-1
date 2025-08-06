@@ -1,14 +1,20 @@
 /* eslint-disable no-unused-vars */
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../providers/AuthContext";
 
 const SignUp = () => {
+	const { createUserWithEmailPasswordFunction } = useContext(AuthContext);
 	const {
 		register,
 		handleSubmit,
 
 		formState: { errors },
 	} = useForm();
-	const onSubmit = (data) => console.log(data);
+	const onSubmit = (data) => {
+		console.log(data);
+		createUserWithEmailPasswordFunction(data.exampleRequired, data.password);
+	};
 
 	return (
 		<div>
