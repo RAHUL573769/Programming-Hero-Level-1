@@ -1,10 +1,27 @@
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Cart = () => {
-	const [cart] = useCart();
+	const [cart, refetch] = useCart();
 
 	const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-	console.log(cart);
+
+	const axiosSecure = useAxiosSecure();
+	// console.log(axiosSecure);
+	const handleDelete = (_id) => {
+		// console.log(id);
+		axiosSecure
+			.delete(`/carts/${_id}`)
+			.then((res) => {
+				if (res.data.deletedCount > 0) {
+					refetch();
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<div>
 			<div className='flex justify-evenly'>
@@ -14,8 +31,8 @@ const Cart = () => {
 				<button className='btn btn-primary'>Pay</button>
 			</div>
 
-			<div className='overflow-x-auto'>
-				<table className='table'>
+			<div className='overflow-x-auto '>
+				<table className='table w-full'>
 					{/* head */}
 					<thead>
 						<tr>
@@ -58,12 +75,17 @@ const Cart = () => {
 									</div>
 								</td>
 								<td>
-									{item.price}
+									${item.price}
 									<br />
 								</td>
 								<td>Purple</td>
 								<th>
-									<button className='btn btn-ghost btn-xs'>details</button>
+									<button
+										onClick={() => handleDelete(item._id)}
+										className='btn btn-ghost btn-xs'
+									>
+										<FaTrashAlt className='text-red-700' />
+									</button>
 								</th>
 							</tr>
 						))}
