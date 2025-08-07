@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import { LoadCanvasTemplate } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import SocialLogin from "../../Components/SocialLogin";
+
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
-	const { signInWithEmailAndPasswordFunction } = useContext(AuthContext);
-
+	const { signInWithEmailAndPasswordFunction, signInWithGoogle } =
+		useContext(AuthContext);
+	const axiosPublic = useAxiosPublic();
 	const location = useLocation();
 	const navigate = useNavigate();
 	const from = location.state;
@@ -27,6 +31,21 @@ const Login = () => {
 			.catch((error) => {
 				console.log(error);
 				// ..
+			});
+	};
+
+	const handleGoogleLogin = () => {
+		signInWithGoogle()
+			.then((data) => {
+				console.log(data);
+				const userInfo = { email: data.user?.email, name: data.user?.name };
+
+				axiosPublic.post("/users", userInfo).then((res) => {
+					console.log(res);
+				});
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 	};
 	return (
@@ -80,6 +99,7 @@ const Login = () => {
 								New Here? <Link to='/signup'>Create An Account</Link>
 							</small>
 						</p>
+						<SocialLogin handleGoogleLogin={handleGoogleLogin}></SocialLogin>
 					</div>
 				</div>
 			</div>

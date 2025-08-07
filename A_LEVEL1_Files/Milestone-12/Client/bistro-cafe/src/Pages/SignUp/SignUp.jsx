@@ -2,8 +2,12 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthContext";
+import { useAsyncValue } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin";
 
 const SignUp = () => {
+	const axiosPublic = useAxiosPublic();
 	const { createUserWithEmailPasswordFunction } = useContext(AuthContext);
 	const {
 		register,
@@ -13,7 +17,18 @@ const SignUp = () => {
 	} = useForm();
 	const onSubmit = (data) => {
 		console.log(data);
-		createUserWithEmailPasswordFunction(data.exampleRequired, data.password);
+		createUserWithEmailPasswordFunction(
+			data.exampleRequired,
+			data.password
+		).then((data) => {
+			const userInfo = { name: data.name, email: data.email };
+			axiosPublic.post("/users", userInfo).then((data) => {
+				if (data.data.insertedId) {
+					alert("User Added to Database");
+				}
+			});
+			console.log(data);
+		});
 	};
 
 	return (
