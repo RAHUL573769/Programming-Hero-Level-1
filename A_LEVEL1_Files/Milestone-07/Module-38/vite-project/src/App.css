@@ -1,0 +1,7 @@
+.person {
+	border: 10px solid blue;
+	-webkit-border-radius: 100px solid blue;
+	-moz-border-radius: 100px solid blue;
+	-ms-border-radius: 100px solid blue;
+	-o-border-radius: 100px solid blue;
+}
