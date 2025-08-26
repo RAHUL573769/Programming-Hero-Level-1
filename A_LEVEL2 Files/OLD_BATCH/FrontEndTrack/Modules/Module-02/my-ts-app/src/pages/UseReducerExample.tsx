@@ -3,6 +3,9 @@ import { useReducer } from "react";
 const initialState = { count: 0 };
 
 const reducer = (currentState: any, action: any) => {
+	console.log("CurrentState", currentState);
+
+	console.log("Action", action.payload);
 	switch (action.type) {
 		case "increment":
 			return { count: currentState.count + 1 };

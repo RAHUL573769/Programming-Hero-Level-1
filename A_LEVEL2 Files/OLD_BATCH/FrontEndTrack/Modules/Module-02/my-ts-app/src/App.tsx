@@ -3,6 +3,8 @@ import "./App.css";
 import UseStateExample from "./pages/UseStateExample";
 import Form from "./pages/Form";
 import UseReducerExample from "./pages/UseReducerExample";
+import UseReucerFormExample from "./pages/UseReucerFormExample";
+import UseEffectExample from "./pages/UseEffectExample";
 
 function App() {
 	const [counter, setCounter] = useState(0);
@@ -37,6 +39,10 @@ function App() {
 			></UseStateExample>
 			<Form></Form>
 			<UseReducerExample></UseReducerExample>
+
+			<UseReucerFormExample></UseReucerFormExample>
+
+			<UseEffectExample></UseEffectExample>
 		</div>
 	);
 }
