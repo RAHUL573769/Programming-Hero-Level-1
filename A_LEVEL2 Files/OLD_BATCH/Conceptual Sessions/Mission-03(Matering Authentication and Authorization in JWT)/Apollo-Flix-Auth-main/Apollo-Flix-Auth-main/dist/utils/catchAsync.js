@@ -29,3 +29,4 @@ const catchAsync = (fn) => {
     });
 };
 exports.catchAsync = catchAsync;
+const catchAsync1 = () => { };

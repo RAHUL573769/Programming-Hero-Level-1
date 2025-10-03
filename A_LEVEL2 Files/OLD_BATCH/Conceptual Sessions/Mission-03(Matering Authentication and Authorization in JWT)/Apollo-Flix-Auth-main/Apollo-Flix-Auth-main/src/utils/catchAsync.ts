@@ -5,21 +5,23 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export const catchAsync = (fn: RequestHandler) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    //     try {
-    //       await fn(req, res, next);
-    //     } catch (error) {
-    //       console.log(error);
-    //       res.status(500).json({
-    //         success: false,
-    //         message: "Something went wrong!",
-    //         error: error,
-    //       });
-    //     }
+	return async (req: Request, res: Response, next: NextFunction) => {
+		//     try {
+		//       await fn(req, res, next);
+		//     } catch (error) {
+		//       console.log(error);
+		//       res.status(500).json({
+		//         success: false,
+		//         message: "Something went wrong!",
+		//         error: error,
+		//       });
+		//     }
 
-    Promise.resolve(fn(req, res, next)).catch((error): void => {
-      console.log(error);
-      next(error);
-    });
-  };
+		Promise.resolve(fn(req, res, next)).catch((error): void => {
+			console.log(error);
+			next(error);
+		});
+	};
 };
+
+const catchAsync1 = () => {};
