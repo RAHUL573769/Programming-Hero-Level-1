@@ -12,16 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.catchAsync = void 0;
 const catchAsync = (fn) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        //     try {
-        //       await fn(req, res, next);
-        //     } catch (error) {
-        //       console.log(error);
-        //       res.status(500).json({
-        //         success: false,
-        //         message: "Something went wrong!",
-        //         error: error,
-        //       });
-        //     }
         Promise.resolve(fn(req, res, next)).catch((error) => {
             console.log(error);
             next(error);
@@ -29,4 +19,3 @@ const catchAsync = (fn) => {
     });
 };
 exports.catchAsync = catchAsync;
-const catchAsync1 = () => { };

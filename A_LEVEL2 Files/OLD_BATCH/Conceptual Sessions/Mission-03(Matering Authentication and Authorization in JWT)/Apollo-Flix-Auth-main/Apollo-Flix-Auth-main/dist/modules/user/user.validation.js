@@ -12,13 +12,13 @@ const user_constants_1 = require("./user.constants");
 //     status: z.nativeEnum(USER_STATUS).default(USER_STATUS.ACTIVE),
 //   }),
 // });
-// const updateUserValidations = z.object({
-//   body: z.object({
-//     name: z.string().optional(),
-//     role: z.nativeEnum(USER_Role).optional(),
-//     status: z.nativeEnum(USER_STATUS).optional(),
-//   }),
-// });
+const updateUserValidations = zod_1.z.object({
+    body: zod_1.z.object({
+        name: zod_1.z.string().optional(),
+        role: zod_1.z.nativeEnum(user_constants_1.USER_Role).optional(),
+        status: zod_1.z.nativeEnum(user_constants_1.USER_STATUS).optional(),
+    }),
+});
 const createAdminValidations = zod_1.z.object({
     body: zod_1.z.object({
         name: zod_1.z.string(),

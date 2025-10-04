@@ -10,13 +10,13 @@ import { USER_Role, USER_STATUS } from "./user.constants";
 //     status: z.nativeEnum(USER_STATUS).default(USER_STATUS.ACTIVE),
 //   }),
 // });
-// const updateUserValidations = z.object({
-//   body: z.object({
-//     name: z.string().optional(),
-//     role: z.nativeEnum(USER_Role).optional(),
-//     status: z.nativeEnum(USER_STATUS).optional(),
-//   }),
-// });
+const updateUserValidations = z.object({
+	body: z.object({
+		name: z.string().optional(),
+		role: z.nativeEnum(USER_Role).optional(),
+		status: z.nativeEnum(USER_STATUS).optional(),
+	}),
+});
 
 const createAdminValidations = z.object({
 	body: z.object({
